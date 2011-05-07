@@ -1,0 +1,15 @@
+psilord-lisp-colors.el
+
+   My redaction of Peter Keller's enchanced lisp mode coloring for emacs.
+   Save it in the load-path and enable with (require 'psilord-lisp-colors).
+
+   Without modifications it will only work with dark themes.
+
+   I've lightened the color of brackets for it to work on non-black
+   dark backgrounds.
+
+pastels-theme.el
+
+   My dark theme for emacs based on pastels theme in Konsole.
+   To use, save it in the load-path and customize-variable
+   custom-enabled-themes, adding pastels.  (Color-theme package is not needed.)
