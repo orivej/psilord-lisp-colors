@@ -87,12 +87,12 @@
   '((t (:foreground "orchid1")))
   "Color all of the ANSI Common Lisp Numbers")
 
-(defun highlight-keywords (face symbols)
+(defmacro highlight-keywords (face symbols)
   "Make a single font-lock-keyword applying FACE to each of the SYMBOLS."
-  (cons (regexp-opt
-         (mapcar #'symbol-name symbols)
-         'symbols)
-        face))
+  `(cons (regexp-opt
+          (mapcar #'symbol-name ,symbols)
+          'symbols)
+         ',face))
 
 (when t ;; sometimes I need to disable this whole thing....
   (add-hook 'lisp-mode-hook
@@ -101,16 +101,16 @@
                nil
                (list
                 ;; Conventional Constant Variables
-                '("\\_<[+].+?[+]\\_>" . #'ansi-lisp-constant)
+                '("\\_<[+].+?[+]\\_>" . 'ansi-lisp-constant)
 
                 ;; Conventional Global Variables, including ANSI ones
-                '("\\_<[*].+?[*]\\_>" . #'ansi-lisp-global-variable)
+                '("\\_<[*].+?[*]\\_>" . 'ansi-lisp-global-variable)
 
                 ;; Lisp Numbers, simple ones, just integers
-                '("\\_<[+-]?[0-9]+\\_>" . #'ansi-lisp-numbers)
+                '("\\_<[+-]?[0-9]+\\_>" . 'ansi-lisp-numbers)
 
                 ;; I'm a psycho and want my parentheis color to be controlled.
-                '("[()]" . #'ansi-lisp-parenthesis)
+                '("[()]" . 'ansi-lisp-parenthesis)
 
                 ;; These are often important to see, but I don't know how to
                 ;; highlight the matching parenthesis with it
