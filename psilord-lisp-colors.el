@@ -389,7 +389,7 @@
     (mapcar #'ansi-lisp-highlight-keyword
             ansi-lisp-known-symbol-classes))))
 
-(add-hook 'lisp-mode-hook 'ansi-lisp-highlight-all-keywords))
+(add-hook 'lisp-mode-hook 'ansi-lisp-highlight-all-keywords)
 
 (provide 'psilord-lisp-colors)
 
