@@ -371,10 +371,10 @@
    (append
     (list
      ;; Conventional Constant Variables
-     '("\\_<[+]\\w+?[+]\\_>" . 'ansi-lisp-constant)
+     '("#?\\_<\\(?:[0-9]+=\\)?\\([+][^ ]+?[+]\\)\\_>" 1 'ansi-lisp-constant)
 
      ;; Conventional Global Variables, including ANSI ones
-     '("\\_<[*]\\w+?[*]\\_>" . 'ansi-lisp-global-variable)
+     '("#?\\_<\\(?:[0-9]+=\\)?\\([*][^ ]+?[*]\\)\\_>" 1 'ansi-lisp-global-variable)
 
      ;; Lisp Numbers, simple ones, just integers
      '("\\_<[+-]?[0-9]+\\_>" . 'ansi-lisp-number)
