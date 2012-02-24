@@ -359,8 +359,8 @@
 (defun ansi-lisp-highlight-keyword (class)
   "Make a single font-lock-keyword applying CLASS face to each of the symbols in CLASS variable."
   (list (regexp-opt
-         (mapcar #'symbol-name (eval class))
-         'symbols)
+         (mapcar #'symbol-name (symbol-value class))
+         'words)
         'quote
         class))
 
@@ -385,6 +385,7 @@
      ;; These are often important to see, but I don't know how to
      ;; highlight the matching parenthesis with it
      ;;'("[#][']" . 'ansi-lisp-boolean)
+     '("[`,@#']" . 'ansi-lisp-boolean)
      )
     (mapcar #'ansi-lisp-highlight-keyword
             ansi-lisp-known-symbol-classes))))
