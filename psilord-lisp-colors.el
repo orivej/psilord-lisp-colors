@@ -10,7 +10,7 @@
 ;; Original comments and remarks are mostly preserved.
 ;;
 ;; Published under the Modified BSD License.
-;; 
+;;
 ;; Maintained by Orivej Desh <orivej@gmx.fr>
 
 ;;; Code:
@@ -358,35 +358,35 @@
 
 (defun ansi-lisp-highlight-keyword (class)
   "Make a single font-lock-keyword applying CLASS face to each of the symbols in CLASS variable."
-  (list (regexp-opt
-         (mapcar #'symbol-name (symbol-value class))
-         'words)
-        'quote
-        class))
+  (let ((rx (regexp-opt (mapcar #'symbol-name (symbol-value class)) 'words)))
+    (list (if (eq class 'ansi-lisp-function)
+              (concat "\\(?:#'\\|(\\)" rx)
+            rx)
+          1
+         `',class)))
 
 (defun ansi-lisp-highlight-all-keywords ()
   "Highlight all known keywords immediatly."
   (font-lock-add-keywords
    nil
-   (append
-    (list
-     ;; Conventional Constant Variables
-     '("#?\\_<\\(?:[0-9]+=\\)?\\([+][^ ]+?[+]\\)\\_>" 1 'ansi-lisp-constant)
+   (list*
+    ;; Conventional Constant Variables
+    '("#?\\_<\\(?:[0-9]+=\\)?\\([+][^ ]+?[+]\\)\\_>" 1 'ansi-lisp-constant)
 
-     ;; Conventional Global Variables, including ANSI ones
-     '("#?\\_<\\(?:[0-9]+=\\)?\\([*][^ ]+?[*]\\)\\_>" 1 'ansi-lisp-global-variable)
+    ;; Conventional Global Variables, including ANSI ones
+    '("#?\\_<\\(?:[0-9]+=\\)?\\([*][^ ]+?[*]\\)\\_>" 1 'ansi-lisp-global-variable)
 
-     ;; Lisp Numbers, simple ones, just integers
-     '("\\_<[+-]?[0-9]+\\_>" . 'ansi-lisp-number)
+    ;; Lisp Numbers, simple ones, just integers
+    '("\\_<[+-]?[0-9]+\\_>" . 'ansi-lisp-number)
 
-     ;; I'm a psycho and want my parentheis color to be controlled.
-     '("[()]" . 'ansi-lisp-parenthesis)
+    ;; I'm a psycho and want my parentheis color to be controlled.
+    '("[()]" 0 'ansi-lisp-parenthesis)
 
-     ;; These are often important to see, but I don't know how to
-     ;; highlight the matching parenthesis with it
-     ;;'("[#][']" . 'ansi-lisp-boolean)
-     '("[`,@#']" . 'ansi-lisp-boolean)
-     )
+    ;; These are often important to see, but I don't know how to
+    ;; highlight the matching parenthesis with it
+    ;;'("[#][']" . 'ansi-lisp-boolean)
+    '("[`,@#']" . 'ansi-lisp-boolean)
+
     (mapcar #'ansi-lisp-highlight-keyword
             ansi-lisp-known-symbol-classes))))
 
