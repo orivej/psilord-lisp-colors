@@ -358,7 +358,7 @@
 
 (defun ansi-lisp-highlight-keyword (class)
   "Make a single font-lock-keyword applying CLASS face to each of the symbols in CLASS variable."
-  (let ((rx (regexp-opt (mapcar #'symbol-name (symbol-value class)) 'words)))
+  (let ((rx (regexp-opt (mapcar #'symbol-name (symbol-value class)) 'symbols)))
     (list (if (eq class 'ansi-lisp-function)
               (concat "\\(?:#'\\|(\\)" rx)
             rx)
